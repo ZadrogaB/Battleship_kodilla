@@ -1,4 +1,4 @@
-package FXML;
+package company;
 
 import company.GameController;
 import company.Ship;

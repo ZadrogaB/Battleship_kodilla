@@ -2,7 +2,7 @@ package company;
 
 import javafx.scene.input.MouseEvent;
 
-import javax.swing.*;
+//import javax.swing.*;
 import java.util.*;
 
 public class GameController {
@@ -94,7 +94,7 @@ public class GameController {
         boolean win = false;
         if(playerShips.size()==0||computerShips.size()==0){
             System.out.println("Zwycięzcą jest: " + player);
-            JOptionPane.showMessageDialog(null, player + " win!");
+//            JOptionPane.showMessageDialog(null, player + " win!");
             System.exit(0);
         }
     }

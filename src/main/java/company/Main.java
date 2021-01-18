@@ -1,6 +1,5 @@
-package FXML;
+package company;
 
-import company.GameController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

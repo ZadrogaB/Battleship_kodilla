@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<GridPane alignment="center" hgap="10" prefHeight="704.0" prefWidth="508.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="704.0" prefWidth="508.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="company.Controller">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
