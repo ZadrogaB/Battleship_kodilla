@@ -1,7 +1,10 @@
-plugins {
-    id 'java'
+/*plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
+}
+
+repositories {
+    mavenCentral()
 }
 
 javafx {
@@ -9,36 +12,43 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-group 'com.kodilla'
-version '1.0-SNAPSHOT'
-//mainClassName = "org.openjfx.MainApp"
-//mainClassName = 'Main'
+mainClassName = 'org.openjfx.Main'*/
 
-
-application {
-//    mainModule = 'AAAAAAAAA.main'
-    mainClass.set("company.Main")
-//    mainClass = 'src.main.java.company.Main'
-//    mainClassName = "AAAAAAAAA.main.company.Main"
+plugins {
+//    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'org.beryx.jlink' version '2.15.1'
 }
 
 repositories {
     mavenCentral()
 }
 
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+
+application {
+    mainModule = 'AAAAAAAAA.main'
+    mainClass.set('org.openjfx.Main')
+//    mainClassName('org.openjfx.Main')
+}
+
+
+//modularity.disableEffectiveArgumentsAdjustment()
+
 dependencies {
     String javaFxVersion = '11.0.2'
-
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
-//    implementation 'org.openjfx:javafx-fxml:16-ea+6'
-//    implementation 'org.openjfx:javafx-controls:16-ea+6'
 }
-
-
 
 java {
     modularity.inferModulePath = true
 }
+applicationDefaultJvmArgs = ["-Djavafx.embed.singleThread=true"]

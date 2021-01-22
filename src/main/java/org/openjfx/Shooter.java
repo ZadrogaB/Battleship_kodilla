@@ -1,4 +1,4 @@
-package company;
+package org.openjfx;
 
 import java.util.List;
 import java.util.Scanner;

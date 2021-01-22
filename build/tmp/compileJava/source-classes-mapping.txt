@@ -1,18 +1,20 @@
-company/Shooter.java
- company.Shooter
-company/UnitPosition.java
- company.UnitPosition
-company/Controller.java
- company.Controller
-company/Board.java
- company.Board
-company/Ship.java
- company.Ship
-company/GameController.java
- company.GameController
-company/ComputerAI.java
- company.ComputerAI
-company/Utils.java
- company.Utils
-company/Main.java
- company.Main
+org/openjfx/Board.java
+ org.openjfx.Board
+org/openjfx/GameController.java
+ org.openjfx.GameController
+org/openjfx/Main.java
+ org.openjfx.Main
+org/openjfx/Controller.java
+ org.openjfx.Controller
+org/openjfx/Ship.java
+ org.openjfx.Ship
+org/openjfx/UnitPosition.java
+ org.openjfx.UnitPosition
+org/openjfx/ComputerAI.java
+ org.openjfx.ComputerAI
+org/openjfx/Shooter.java
+ org.openjfx.Shooter
+module-info.java
+ module-info
+org/openjfx/Utils.java
+ org.openjfx.Utils

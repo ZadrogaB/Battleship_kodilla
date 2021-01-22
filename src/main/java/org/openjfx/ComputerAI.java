@@ -1,4 +1,4 @@
-package company;
+package org.openjfx;
 
 public class ComputerAI {
     private Utils utils = new Utils();
