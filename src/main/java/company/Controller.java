@@ -1,8 +1,5 @@
 package company;
 
-import company.GameController;
-import company.Ship;
-import company.UnitPosition;
 import javafx.collections.ObservableList;
 //import javafx.fxml.FXML;
 import javafx.fxml.FXML;
@@ -135,7 +132,7 @@ public class Controller {
                 numberOfLoops--;
             } else {
                 for (UnitPosition unitPosition : shipPlayer.getPositions()) {                     // Kolorowanie pól ze statkami
-//                    System.out.println("Ship positions row and column = " + unitPosition.getRow() + "," + unitPosition.getColumn());
+//                    System.out.println("company.Ship positions row and column = " + unitPosition.getRow() + "," + unitPosition.getColumn());
                     int shipRow = unitPosition.getRow();
                     int shipColumn = unitPosition.getColumn();
 

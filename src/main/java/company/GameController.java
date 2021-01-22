@@ -41,12 +41,12 @@ public class GameController {
 
     public void RunGame(int row, int column){
 //        for (int i=0;;i++){
-//            System.out.println("Player Board");
+//            System.out.println("Player company.Board");
 //            boardClass.printPlayerBoard(playerBoard, computerBoard);
         shooter.shootPlayer(playerShips, computerShips, deadShipsPlayer, deadShipsComputer, row, column);
             isWin("Player");
             isHitPlayer = shooter.isHit();
-//            System.out.println("Computer Board");
+//            System.out.println("Computer company.Board");
 //            boardClass.printComputerBoard(playerBoard, computerBoard);
             shooter.shootComputer(playerBoard, playerShips, computerShips, deadShipsPlayer, deadShipsComputer);
             isWin("Computer");
@@ -110,7 +110,7 @@ public class GameController {
             for (int i = 0; i < ship.getNumberOfSquares(); i++) {
                 ship.setHorizontal(false);
                 ship.setPositions(row + i, column);
-                setNeighbours(ship, row, column, false); //Ship ship, int row, int column, boolean horizontal
+                setNeighbours(ship, row, column, false); //company.Ship ship, int row, int column, boolean horizontal
             }
         } else {
             for (int i = 0; i < ship.getNumberOfSquares(); i++) {

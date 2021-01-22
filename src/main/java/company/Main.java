@@ -7,15 +7,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    GameController gameController = new GameController();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+       Parent root = FXMLLoader.load(getClass().getResource("../../resources/newSample.fxml"));
         primaryStage.setTitle("BattleShip!");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-//        gameController.placeShips();
     }
 
 

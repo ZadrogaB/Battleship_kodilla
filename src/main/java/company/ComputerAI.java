@@ -13,13 +13,13 @@ public class ComputerAI {
         return unitPosition;
     }
 
-   /* public UnitPosition AIHard(){
+   /* public company.UnitPosition AIHard(){
         int row, column;
 
         if((numberOfLoops==0)||(numberOfLoops!=0 && wasHitLastTime==false)){
             row = utils.getRandomNumberInRange(0,9);
             column = utils.getRandomNumberInRange(0,9);
-            UnitPosition unitPosition = new UnitPosition(row,column);
+            company.UnitPosition unitPosition = new company.UnitPosition(row,column);
         } else if(numberOfLoops!=0 && wasHitLastTime==true){
 
         }

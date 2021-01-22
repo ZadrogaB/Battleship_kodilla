@@ -13,38 +13,32 @@ group 'com.kodilla'
 version '1.0-SNAPSHOT'
 //mainClassName = "org.openjfx.MainApp"
 //mainClassName = 'Main'
+
+
 application {
-    mainModule = 'company'
-    mainClass = 'company.Main'
+//    mainModule = 'AAAAAAAAA.main'
+    mainClass.set("company.Main")
+//    mainClass = 'src.main.java.company.Main'
+//    mainClassName = "AAAAAAAAA.main.company.Main"
 }
-//repositories {
-//    mavenCentral()
-//}
-//
-//dependencies {
-//// https://mvnrepository.com/artifact/org.openjfx/javafx-fxml
-//    compile group: 'org.openjfx', name: 'javafx-fxml', version: '15.0.1'
-//    // https://mvnrepository.com/artifact/org.jrebirth.af.showcase/fxml
-//    compile group: 'org.jrebirth.af.showcase', name: 'fxml', version: '8.6.0'
-//}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    String javaFxVersion = '11'
+    String javaFxVersion = '11.0.2'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
     implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
     implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+//    implementation 'org.openjfx:javafx-fxml:16-ea+6'
+//    implementation 'org.openjfx:javafx-controls:16-ea+6'
+}
+
+
+
+java {
+    modularity.inferModulePath = true
 }

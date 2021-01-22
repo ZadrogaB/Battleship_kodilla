@@ -1,9 +1,9 @@
+company/Shooter.java
+ company.Shooter
 company/UnitPosition.java
  company.UnitPosition
 company/Controller.java
  company.Controller
-company/Shooter.java
- company.Shooter
 company/Board.java
  company.Board
 company/Ship.java
