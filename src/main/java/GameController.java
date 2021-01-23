@@ -1,6 +1,11 @@
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
-//import javax.swing.*;
+
+import java.io.IOException;
 import java.util.*;
 
 public class GameController {
@@ -17,6 +22,16 @@ public class GameController {
     private boolean isHitPlayer;
     private boolean isHitComputer;
     private UnitPosition computerShot;
+    private String winnerString;
+    private boolean isWin;
+
+    public String getWinnerString() {
+        return winnerString;
+    }
+
+    public boolean isWin() {
+        return isWin;
+    }
 
     public boolean isHitPlayer() {
         return isHitPlayer;
@@ -34,23 +49,23 @@ public class GameController {
         boardClass.fillBoardWithWater(playerBoard);
         boardClass.fillBoardWithWater(computerBoard);
         System.out.println("startFunctions work");
-
+        winnerString=null;
+        isWin=false;
     }
 
     public void RunGame(int row, int column){
-//        for (int i=0;;i++){
-//            System.out.println("Player company.Board");
-//            boardClass.printPlayerBoard(playerBoard, computerBoard);
         shooter.shootPlayer(playerShips, computerShips, deadShipsPlayer, deadShipsComputer, row, column);
+
             isWin("Player");
-            isHitPlayer = shooter.isHit();
-//            System.out.println("Computer company.Board");
-//            boardClass.printComputerBoard(playerBoard, computerBoard);
-            shooter.shootComputer(playerBoard, playerShips, computerShips, deadShipsPlayer, deadShipsComputer);
+
+        isHitPlayer = shooter.isHit();
+        shooter.shootComputer(playerBoard, playerShips, computerShips, deadShipsPlayer, deadShipsComputer);
+
             isWin("Computer");
-            isHitComputer = shooter.isHit();
-            computerShot=shooter.getComputerShot();
-//        }
+
+        isHitComputer = shooter.isHit();
+        computerShot=shooter.getComputerShot();
+
     }
 
     public void setNeighbours (Ship ship, int row, int column, boolean horizontal){
@@ -88,12 +103,12 @@ public class GameController {
         }
     }
 
-    public void isWin(String player){
+    public void isWin(String player) {
         boolean win = false;
         if(playerShips.size()==0||computerShips.size()==0){
             System.out.println("Zwycięzcą jest: " + player);
-//            JOptionPane.showMessageDialog(null, player + " win!");
-            System.exit(0);
+            winnerString = player;
+            isWin=true;
         }
     }
 

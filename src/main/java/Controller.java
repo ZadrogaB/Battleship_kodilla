@@ -1,8 +1,8 @@
 import javafx.collections.ObservableList;
-//import javafx.fxml.FXML;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -27,7 +27,9 @@ public class Controller {
     @FXML
     private Button visibleTargetsButton;
     @FXML
-    private Button restartButton;
+    private Label winLabel;
+    @FXML
+    private Label restartLabel;
 
     private GameController gameController = new GameController();
     private List<Ship> playerShips = gameController.playerShips;
@@ -48,35 +50,7 @@ public class Controller {
             areTargetsVisible=true;
             color=Color.web("002AFFFF");
         }
-
-
-        for (int i = 0; i < computerShips.size(); i++) {
-            Ship shipComputer = computerShips.get(i);
-            for (UnitPosition unitPosition : shipComputer.getPositions()) {        ////////////////POLA KOMPUTERA KOLOROWE
-                int shipRow = unitPosition.getRow();
-                int shipColumn = unitPosition.getColumn();
-
-                ObservableList<Node> childrenComputer = gridPaneTargets.getChildren();    //Kolorowanie pól komputera
-                    for (Node node : childrenComputer) {
-                        Integer columnIndex = GridPane.getColumnIndex(node);
-                        Integer rowIndex = GridPane.getRowIndex(node);
-
-                        if (columnIndex == null)
-                            columnIndex = 0;
-                        if (rowIndex == null)
-                            rowIndex = 0;
-
-                        if (columnIndex == shipColumn && rowIndex == shipRow) {
-                            try {
-                                Rectangle rectangle = (Rectangle) node;
-                                rectangle.setFill(color);
-                            } catch (RuntimeException exception) {
-                            }
-                        }
-                    }
-
-            } ////////////////POLA KOMPUTERA KOLOROWE
-        }
+        paintSquaresShip(computerShips,color,gridPaneTargets, false);// zrobić listę z trafionymi celami i odjąć te cele od malowanych statków lub sprawdzać czy kwadrat jest czerwony i wtedy go nie zmienić na niebieski
     }
 
     public void onMouseClickedHorizontal(){
@@ -87,7 +61,6 @@ public class Controller {
             isHorizontal=true;
             horizontalButton.setText("horizontal");
         }
-
     }
 
     public void onMouseClickedNewGame(MouseEvent e) {
@@ -98,25 +71,18 @@ public class Controller {
         gridPaneShips.disableProperty().set(false);
         gridPaneTargets.disableProperty().set(false);
         setEverythingVisible(true);
+        winLabel.disableProperty().set(true);
+        restartLabel.disableProperty().set(true);
+        winLabel.setText("");
+        restartLabel.setText("");
     }
 
     public void onMouseClickedRectangle(MouseEvent e) {
-        int row, column;
+
         boolean testInterferencePlayer;
-
-        Node source = (Node) e.getSource();
-
-        try {
-            row = GridPane.getRowIndex(source);
-        } catch (RuntimeException exception) {
-            //System.out.println("Błąd: " + exception);
-            row = 0;
-        }
-        try {
-            column = GridPane.getColumnIndex(source);
-        } catch (RuntimeException exception) {
-            column = 0;
-        }
+        UnitPosition nodePosition = getNode(e);
+        int row = nodePosition.getRow();
+        int column = nodePosition.getColumn();
 
         if (numberOfLoops < playerShips.size()) {
             System.out.println("playerShip.size() = " + playerShips.size() + "\ncomputerShips.size() = " + computerShips.size());
@@ -129,31 +95,7 @@ public class Controller {
             if (testInterferencePlayer) {
                 numberOfLoops--;
             } else {
-                for (UnitPosition unitPosition : shipPlayer.getPositions()) {                     // Kolorowanie pól ze statkami
-//                    System.out.println("company.Ship positions row and column = " + unitPosition.getRow() + "," + unitPosition.getColumn());
-                    int shipRow = unitPosition.getRow();
-                    int shipColumn = unitPosition.getColumn();
-
-                    ObservableList<Node> childrenPlayer = gridPaneShips.getChildren();    //Kolorowanie pól gracza
-                    for (Node node : childrenPlayer) {
-                        Integer columnIndex = GridPane.getColumnIndex(node);
-                        Integer rowIndex = GridPane.getRowIndex(node);
-
-                        if (columnIndex == null)
-                            columnIndex = 0;
-                        if (rowIndex == null)
-                            rowIndex = 0;
-
-                        if (columnIndex == shipColumn && rowIndex == shipRow) {
-                            try {
-                                Rectangle rectangle = (Rectangle) node;
-                                rectangle.setFill(Color.BLUE);
-                            } catch (RuntimeException exception) {
-                            }
-                        }
-                    }
-
-                }
+                paintSquaresShip(playerShips, Color.BLUE, gridPaneShips, false);
             }
             if(numberOfLoops==playerShips.size()-1){
                 horizontalButton.visibleProperty().set(false);
@@ -161,58 +103,25 @@ public class Controller {
                 visibleTargetsButton.visibleProperty().set(true);
             }
             numberOfLoops++;
-        }                   // Położenie statków i kolorowanie pól na których się znajdują
-
+        }
     }
-    // Dodać akcje z gridPaneTarget + rysowanie strzałów
 
     public void onMouseClickedTarget(MouseEvent e){
-        int row, column;
-        boolean isHit;
-
-        Node source = (Node) e.getSource();
-
-        try {
-            row = GridPane.getRowIndex(source);
-        } catch (RuntimeException exception) {
-            row = 0;
-        }
-        try {
-            column = GridPane.getColumnIndex(source);
-        } catch (RuntimeException exception) {
-            column = 0;
-        }
+        boolean isHit, isWin;
+        UnitPosition nodePosition = getNode(e);
+        int row = nodePosition.getRow();
+        int column = nodePosition.getColumn();
 
         if (numberOfLoops>=playerShips.size()) {
             gameController.RunGame(row, column);
             isHit = gameController.isHitPlayer();
 
-            ObservableList<Node> childrenTarget = gridPaneTargets.getChildren();    //Kolorowanie pól w które strzelał gracz
-            for (Node node : childrenTarget) {
-                Integer columnIndex = GridPane.getColumnIndex(node);
-                Integer rowIndex = GridPane.getRowIndex(node);
+            paintSquaresShoot(row, column, isHit);
 
-                if (columnIndex == null)
-                    columnIndex = 0;
-                if (rowIndex == null)
-                    rowIndex = 0;
-
-                if (columnIndex == column && rowIndex == row) {
-                    try {
-                        Rectangle rectangle = (Rectangle) node;
-                        shotRectanglesPlayer.add(rectangle);
-                        if(isHit) {
-                            rectangle.setFill(Color.RED);
-                            rectangle.disableProperty().set(true);
-                        } else {
-                            rectangle.setFill(Color.BLACK);
-                            rectangle.disableProperty().set(true);
-                        }
-                    } catch (RuntimeException exception) {
-                    }
-                }
+            isWin = gameController.isWin();
+            if (isWin){
+                showWinLabel(gameController.getWinnerString());
             }
-
             isHit = gameController.isHitComputer();
             ObservableList<Node> childrenPlayer = gridPaneShips.getChildren();    //Kolorowanie pól gracza
             for (Node node : childrenPlayer) {
@@ -242,77 +151,21 @@ public class Controller {
 
     public void onMouseClickedRestartButton() {
 
-       Color color = Color.web("#00c5ff");
+        Color color = Color.web("#00c5ff");
+        paintSquaresShip(computerShips, color, gridPaneTargets, true);
 
-        for (int i = 0; i < computerShips.size(); i++) {
-            Ship shipComputer = computerShips.get(i);
-            for (UnitPosition unitPosition : shipComputer.getPositions()) {        ////////////////POLA KOMPUTERA KOLOROWE
-                int shipRow = unitPosition.getRow();
-                int shipColumn = unitPosition.getColumn();
-
-                ObservableList<Node> childrenComputer = gridPaneTargets.getChildren();    //Kolorowanie pól komputera
-                for (Node node : childrenComputer) {
-                    Integer columnIndex = GridPane.getColumnIndex(node);
-                    Integer rowIndex = GridPane.getRowIndex(node);
-
-                    if (columnIndex == null)
-                        columnIndex = 0;
-                    if (rowIndex == null)
-                        rowIndex = 0;
-
-                    if (columnIndex == shipColumn && rowIndex == shipRow) {
-                        try {
-                            Rectangle rectangle = (Rectangle) node;
-                            rectangle.disableProperty().set(false);
-                            rectangle.setFill(color);
-                        } catch (RuntimeException exception) {
-                        }
-                    }
-                }
-
-            } ////////////////POLA KOMPUTERA KOLOROWE
-        }
-
-        for(Rectangle rectangle : shotRectanglesPlayer){
+        for (Rectangle rectangle : shotRectanglesPlayer) {
             rectangle.setFill(color);
             rectangle.disableProperty().set(false);
         }
 
-        for (int i = 0; i < playerShips.size(); i++) {
-            Ship shipPlayer = playerShips.get(i);
-            for (UnitPosition unitPosition : shipPlayer.getPositions()) {        ////////////////POLA gracza
-                int shipRow = unitPosition.getRow();
-                int shipColumn = unitPosition.getColumn();
+        paintSquaresShip(playerShips, color, gridPaneShips, true);
 
-                ObservableList<Node> childrenComputer = gridPaneShips.getChildren();    //Kolorowanie pól komputera
-                for (Node node : childrenComputer) {
-                    Integer columnIndex = GridPane.getColumnIndex(node);
-                    Integer rowIndex = GridPane.getRowIndex(node);
-
-                    if (columnIndex == null)
-                        columnIndex = 0;
-                    if (rowIndex == null)
-                        rowIndex = 0;
-
-                    if (columnIndex == shipColumn && rowIndex == shipRow) {
-                        try {
-                            Rectangle rectangle = (Rectangle) node;
-                            rectangle.disableProperty().set(false);
-                            rectangle.setFill(color);
-                        } catch (RuntimeException exception) {
-                        }
-                    }
-                }
-
-            } ////////////////POLA gracza
-        }
-
-        for(Rectangle rectangle : shotRectanglesComputer){
+        for (Rectangle rectangle : shotRectanglesComputer) {
             rectangle.setFill(color);
             rectangle.disableProperty().set(false);
         }
-//        shotRectanglesComputer=null;
-//        shotRectanglesPlayer=null;
+
 
         gameController.restartGame();
         playerShips = gameController.playerShips;
@@ -324,6 +177,9 @@ public class Controller {
         newGameButton.setVisible(false);
         gridPaneShips.disableProperty().set(false);
         gridPaneTargets.disableProperty().set(false);
+        visibleTargetsButton.setVisible(false);
+        winLabel.setText("");
+        restartLabel.setText("");
         setEverythingVisible(true);
     }
 
@@ -356,4 +212,98 @@ public class Controller {
             }
         }
     }
+
+    public void paintSquaresShip(List<Ship> paintList, Color colorOne, GridPane gridPane, boolean isRestartButton) {
+        for (int i = 0; i < paintList.size(); i++) {
+            Ship ship = paintList.get(i);
+            for (UnitPosition unitPosition : ship.getPositions()) {        ////////////////POLA KOMPUTERA KOLOROWE
+                int shipRow = unitPosition.getRow();
+                int shipColumn = unitPosition.getColumn();
+
+                ObservableList<Node> childrenComputer = gridPane.getChildren();    //Kolorowanie pól komputera
+                for (Node node : childrenComputer) {
+                    Integer columnIndex = GridPane.getColumnIndex(node);
+                    Integer rowIndex = GridPane.getRowIndex(node);
+
+                    if (columnIndex == null)
+                        columnIndex = 0;
+                    if (rowIndex == null)
+                        rowIndex = 0;
+
+                    if (columnIndex == shipColumn && rowIndex == shipRow) {
+                        try {
+                            Rectangle rectangle = (Rectangle) node;
+                            rectangle.disableProperty().set(false);
+
+                            if(!isRestartButton && !rectangle.getFill().equals(Color.RED)) {
+                                rectangle.setFill(colorOne);
+                            } else if (isRestartButton && !rectangle.getFill().equals(Color.RED)) {
+                                rectangle.setFill(colorOne);
+                            } else {
+                            }
+                        } catch (RuntimeException exception) {
+                        }
+                    }
+                }
+
+            } ////////////////POLA KOMPUTERA KOLOROWE
+        }
+    }
+
+    public void paintSquaresShoot(int row, int column, boolean isHit){
+        ObservableList<Node> childrenTarget = gridPaneTargets.getChildren();    //Kolorowanie pól w które strzelał gracz
+        for (Node node : childrenTarget) {
+            Integer columnIndex = GridPane.getColumnIndex(node);
+            Integer rowIndex = GridPane.getRowIndex(node);
+
+            if (columnIndex == null)
+                columnIndex = 0;
+            if (rowIndex == null)
+                rowIndex = 0;
+
+            if (columnIndex == column && rowIndex == row) {
+                try {
+                    Rectangle rectangle = (Rectangle) node;
+                    shotRectanglesPlayer.add(rectangle);
+                    if(isHit) {
+                        rectangle.setFill(Color.RED);
+                        rectangle.disableProperty().set(true);
+                    } else {
+                        rectangle.setFill(Color.BLACK);
+                        rectangle.disableProperty().set(true);
+                    }
+                } catch (RuntimeException exception) {
+                }
+            }
+        }
+    }
+
+    public UnitPosition getNode(MouseEvent e){
+        int row, column;
+        boolean testInterferencePlayer;
+
+        Node source = (Node) e.getSource();
+
+        try {
+            row = GridPane.getRowIndex(source);
+        } catch (RuntimeException exception) {
+            row = 0;
+        }
+        try {
+            column = GridPane.getColumnIndex(source);
+        } catch (RuntimeException exception) {
+            column = 0;
+        }
+        UnitPosition result = new UnitPosition(row, column);
+        return result;
+    }
+
+    public void showWinLabel(String loser){
+        setEverythingVisible(false);
+        winLabel.disableProperty().set(false);
+        restartLabel.disableProperty().set(false);
+        winLabel.setText(loser + " lost!");
+        restartLabel.setText("Click restart to start new game.");
+    }
+
 }
