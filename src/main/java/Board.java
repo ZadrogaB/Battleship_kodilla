@@ -1,5 +1,3 @@
-package org.openjfx;
-
 public class Board {
 
     public void fillBoardWithWater(char[][] board){

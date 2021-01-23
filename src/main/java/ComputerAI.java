@@ -1,5 +1,3 @@
-package org.openjfx;
-
 public class ComputerAI {
     private Utils utils = new Utils();
     private  boolean wasHitLastTime=false;

@@ -1,20 +1,18 @@
-org/openjfx/Board.java
- org.openjfx.Board
-org/openjfx/GameController.java
- org.openjfx.GameController
-org/openjfx/Main.java
- org.openjfx.Main
-org/openjfx/Controller.java
- org.openjfx.Controller
-org/openjfx/Ship.java
- org.openjfx.Ship
-org/openjfx/UnitPosition.java
- org.openjfx.UnitPosition
-org/openjfx/ComputerAI.java
- org.openjfx.ComputerAI
-org/openjfx/Shooter.java
- org.openjfx.Shooter
-module-info.java
- module-info
-org/openjfx/Utils.java
- org.openjfx.Utils
+ComputerAI.java
+ ComputerAI
+Shooter.java
+ Shooter
+GameController.java
+ GameController
+UnitPosition.java
+ UnitPosition
+Ship.java
+ Ship
+Utils.java
+ Utils
+Board.java
+ Board
+Controller.java
+ Controller
+Main.java
+ Main

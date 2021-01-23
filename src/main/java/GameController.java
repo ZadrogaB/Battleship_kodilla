@@ -1,5 +1,3 @@
-package org.openjfx;
-
 import javafx.scene.input.MouseEvent;
 
 //import javax.swing.*;

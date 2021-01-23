@@ -1,5 +1,3 @@
-package org.openjfx;
-
 import javafx.collections.ObservableList;
 //import javafx.fxml.FXML;
 import javafx.fxml.FXML;
