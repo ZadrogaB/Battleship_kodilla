@@ -302,7 +302,7 @@ public class Controller {
         setEverythingVisible(false);
         winLabel.disableProperty().set(false);
         restartLabel.disableProperty().set(false);
-        winLabel.setText(loser + " lost!");
+        winLabel.setText(loser + " win!");
         restartLabel.setText("Click restart to start new game.");
     }
 

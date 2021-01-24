@@ -1,12 +1,10 @@
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 public class Shooter {
-    Scanner scanner = new Scanner(System.in);
-    Utils utils = new Utils();
     private boolean hit;
     private UnitPosition computerShot;
+    ComputerAI computerAI = new ComputerAI();
 
     public UnitPosition getComputerShot() {
         return computerShot;
@@ -17,29 +15,16 @@ public class Shooter {
     }
 
     public void shootPlayer(List<Ship> playerShips, List<Ship> computerShips, Set<Ship> deadShipsPlayer, Set<Ship> deadShipsComputer, int row, int column){
-//        System.out.println("W który rząd oddać strzał?");
-//        row = scanner.nextInt();
-//        System.out.println("W którą kolumnę oddać strzał");
-//        column = scanner.nextInt();
-//        scanner.nextLine();
-//        computerBoard[row][column] = 'X';
         checkIfHit(row, column, false, playerShips, computerShips, deadShipsPlayer, deadShipsComputer);
-    } // Shotter
+    }
 
     public void shootComputer(char[][] playerBoard, List<Ship> playerShips, List<Ship> computerShips, Set<Ship> deadShipsPlayer, Set<Ship> deadShipsComputer){
-        boolean isHit;
-        int row, column;
-        do {
-            row = utils.getRandomNumberInRange(0, 9);
-            column = utils.getRandomNumberInRange(0, 9);
-            computerShot = new UnitPosition(row, column);
-        }while(playerBoard[row][column]=='X');
-        playerBoard[row][column]='X';
-        checkIfHit(row, column, true, playerShips, computerShips, deadShipsPlayer, deadShipsComputer);
-    } // Shotter
+        computerShot = computerAI.AIEasy(playerBoard);
+        System.out.println("Computer AI wartości row i column: " + computerShot.getRow() +", " + computerShot.getColumn());
+        checkIfHit(computerShot.getRow(), computerShot.getColumn(), true, playerShips, computerShips, deadShipsPlayer, deadShipsComputer);
+    }
 
     public void checkIfHit(int row, int column, boolean isComputer, List<Ship> playerShips, List<Ship> computerShips, Set<Ship> deadShipsPlayer, Set<Ship> deadShipsComputer){
-
         if(isComputer) {
             checkIfHitCommon(playerShips, isComputer, row, column, deadShipsPlayer, deadShipsComputer);
             playerShips.removeIf(ship -> ship.getLife()==0);
@@ -49,8 +34,7 @@ public class Shooter {
             computerShips.removeIf(ship -> ship.getLife()==0);
             System.out.println("Komputerowi pozostało " + computerShips.size() + " statków");
         }
-
-    } // Shotter
+    }
 
     private void checkIfHitCommon(List<Ship> shipList, boolean isComputer, int row, int column, Set<Ship> deadShipsPlayer, Set<Ship> deadShipsComputer) {
         hit = false;

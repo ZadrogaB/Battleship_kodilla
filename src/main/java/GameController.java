@@ -25,6 +25,7 @@ public class GameController {
     private String winnerString;
     private boolean isWin;
 
+
     public String getWinnerString() {
         return winnerString;
     }
@@ -107,7 +108,9 @@ public class GameController {
         boolean win = false;
         if(playerShips.size()==0||computerShips.size()==0){
             System.out.println("Zwycięzcą jest: " + player);
-            winnerString = player;
+            if(winnerString==null) {
+                winnerString = player;
+            }
             isWin=true;
         }
     }
