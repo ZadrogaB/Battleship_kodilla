@@ -69,13 +69,4 @@ public class Ship {
         neighbours.removeAll(allPositionsSet);
     }
 
-    public void printNeighbours(){
-        int loopCount = 0;
-        System.out.println("Statek: " + numberOfSquares );
-        for (UnitPosition unitPosition : neighbours){
-            loopCount++;
-            System.out.println(loopCount + ") Row = " + unitPosition.getRow() + "\nColumn = " + unitPosition.getColumn());
-        }
-    }
-
 }

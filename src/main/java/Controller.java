@@ -30,6 +30,8 @@ public class Controller {
     private Label winLabel;
     @FXML
     private Label restartLabel;
+    @FXML
+    private Label infoLabel;
 
     private GameController gameController = new GameController();
     private List<Ship> playerShips = gameController.playerShips;
@@ -75,6 +77,7 @@ public class Controller {
         restartLabel.disableProperty().set(true);
         winLabel.setText("");
         restartLabel.setText("");
+        showInfo("Wybierz polozenie statku: 1");
     }
 
     public void onMouseClickedRectangle(MouseEvent e) {
@@ -88,7 +91,11 @@ public class Controller {
             System.out.println("playerShip.size() = " + playerShips.size() + "\ncomputerShips.size() = " + computerShips.size());
             Ship shipPlayer = playerShips.get(numberOfLoops);
             Ship shipComputer = computerShips.get(numberOfLoops);
-
+            if(shipPlayer.getNumberOfSquares()<5) {
+                showInfo("Wybierz polozenie statku: " + (shipPlayer.getNumberOfSquares() + 1));
+            } else {
+                showInfo("Oddaj strzal!");
+            }
             testInterferencePlayer = gameController.placeShipsPlayer(shipPlayer, e, row, column, isHorizontal);
             gameController.placeShipComputer(shipComputer);
 
@@ -111,15 +118,27 @@ public class Controller {
         UnitPosition nodePosition = getNode(e);
         int row = nodePosition.getRow();
         int column = nodePosition.getColumn();
+        int beforeShotSize = computerShips.size();
+        int afterShotSize;
 
         if (numberOfLoops>=playerShips.size()) {
             gameController.RunGame(row, column);
             isHit = gameController.isHitPlayer();
+            afterShotSize=computerShips.size();
+            if(isHit) {
+                showInfo("Trafiles statek wroga");
+                if(beforeShotSize-afterShotSize!=0){
+                    showInfo("Zatopiles statek wroga");
+                }
+            } else {
+                showInfo("Sproboj oddac kolejny strzal");
+            }
 
             paintSquaresShoot(row, column, isHit);
 
             isWin = gameController.isWin();
             if (isWin){
+                showInfo("");
                 showWinLabel(gameController.getWinnerString());
             }
             isHit = gameController.isHitComputer();
@@ -173,7 +192,7 @@ public class Controller {
 
         gameController.startFunctions();
         System.out.println("StartWork");
-        numberOfLoops = 0;
+        showInfo("Wybierz polozenie statku: 1");
         newGameButton.setVisible(false);
         gridPaneShips.disableProperty().set(false);
         gridPaneTargets.disableProperty().set(false);
@@ -304,6 +323,10 @@ public class Controller {
         restartLabel.disableProperty().set(false);
         winLabel.setText(loser + " win!");
         restartLabel.setText("Click restart to start new game.");
+    }
+
+    public void showInfo(String info){
+        infoLabel.setText(info);
     }
 
 }

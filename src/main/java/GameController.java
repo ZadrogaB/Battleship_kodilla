@@ -1,11 +1,4 @@
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-
-
-import java.io.IOException;
 import java.util.*;
 
 public class GameController {
@@ -172,21 +165,6 @@ public class GameController {
 //        System.out.println("KOMPUTER: ustawiono statek " + computerShip.getLife() + " na pozycji: " + row + ", " + column);
     }
 
-    public void drawShip(Ship ship, boolean isComputer, char[][] playerBoard,char[][] computerBoard){
-        int row, column;
-        Set<UnitPosition> drawPositions = ship.getPositions();
-
-        for (UnitPosition unitPosition : drawPositions){
-            row = unitPosition.getRow();
-            column = unitPosition.getColumn();
-            if(isComputer==false) {
-                playerBoard[row][column] = 'S';
-            } else {
-                computerBoard[row][column] = 'C';
-            }
-        }
-    }
-
     public List<Ship> createShips(){
         List<Ship> shipList = new ArrayList<>();
         Ship shipOne = new Ship(1);
@@ -225,10 +203,6 @@ public class GameController {
             isShipInterfere=true;
         }
         return  isShipInterfere;
-    }
-
-    public List<Ship> getPlayerShips() {
-        return playerShips;
     }
 
     public void restartGame(){

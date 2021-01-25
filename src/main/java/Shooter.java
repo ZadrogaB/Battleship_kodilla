@@ -3,6 +3,7 @@ import java.util.Set;
 
 public class Shooter {
     private boolean hit;
+    private int lastDeadShipComputer;
     private UnitPosition computerShot;
     ComputerAI computerAI = new ComputerAI();
 
@@ -10,11 +11,13 @@ public class Shooter {
         return computerShot;
     }
 
+
     public boolean isHit() {
         return hit;
     }
 
     public void shootPlayer(List<Ship> playerShips, List<Ship> computerShips, Set<Ship> deadShipsPlayer, Set<Ship> deadShipsComputer, int row, int column){
+        lastDeadShipComputer=deadShipsComputer.size();
         checkIfHit(row, column, false, playerShips, computerShips, deadShipsPlayer, deadShipsComputer);
     }
 

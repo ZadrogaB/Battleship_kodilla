@@ -293,6 +293,10 @@
                </font>
             </Label>
             <Label fx:id="restartLabel" disable="true" layoutX="171.0" layoutY="347.0" prefHeight="38.0" prefWidth="174.0" textAlignment="CENTER" />
+            <Label fx:id="infoLabel" layoutX="124.0" layoutY="644.0" prefHeight="52.0" prefWidth="306.0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
         </children>
     </Pane>
 </children>
