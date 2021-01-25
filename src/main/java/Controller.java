@@ -216,9 +216,7 @@ public class Controller {
                 Rectangle rectangle = (Rectangle) node;
                 rectangle.visibleProperty().set(visible);
             } catch (RuntimeException e){
-                //System.out.println("Błąd wyświetlania kwadratów gridPaneShipsChildren" + e);
             }
-
         }
 
         ObservableList<Node> gridPaneTargetChildren = gridPaneTargets.getChildren();
@@ -227,7 +225,6 @@ public class Controller {
                 Rectangle rectangle = (Rectangle) node;
                 rectangle.visibleProperty().set(visible);
             }catch (RuntimeException e) {
-                //System.out.println("Błąd wyświetlania kwadratów gridPaneTargetChildren" + e);
             }
         }
     }
@@ -264,7 +261,6 @@ public class Controller {
                         }
                     }
                 }
-
             } ////////////////POLA KOMPUTERA KOLOROWE
         }
     }
@@ -299,7 +295,6 @@ public class Controller {
 
     public UnitPosition getNode(MouseEvent e){
         int row, column;
-        boolean testInterferencePlayer;
 
         Node source = (Node) e.getSource();
 

@@ -11,7 +11,6 @@ public class Shooter {
         return computerShot;
     }
 
-
     public boolean isHit() {
         return hit;
     }
@@ -48,7 +47,6 @@ public class Shooter {
                     hit = true;
                     ship.setLife(ship.getLife() - 1);
                     System.out.println("! ! ! HIT ! ! !");
-                   //                    System.out.println("Trafionemu statkowi potało: " + ship.getLife() + " żyć!");
                     if (ship.getLife() == 0 && isComputer==false) {
                         deadShipsPlayer.add(ship);
                     } else if (ship.getLife() == 0 && isComputer==true){

@@ -20,20 +20,20 @@ public class ComputerAI {
         return computerShot;
     }
 
-    public UnitPosition AIHard(char[][] playerBoard, List<Ship> playerShips, List<Ship> computerShips, Set<Ship> deadShipsPlayer, Set<Ship> deadShipsComputer){
-        int row, column;
-
-        if (wasHitLastTime){
-            switch (numberOfLoops){
-
-
-            }
-        } else {
-            switch (numberOfLoops){
-                case 0:
-
-            }
-        }
+//    public UnitPosition AIHard(char[][] playerBoard, List<Ship> playerShips, List<Ship> computerShips, Set<Ship> deadShipsPlayer, Set<Ship> deadShipsComputer){
+//        int row, column;
+//
+//        if (wasHitLastTime){
+//            switch (numberOfLoops){
+//
+//
+//            }
+//        } else {
+//            switch (numberOfLoops){
+//                case 0:
+//
+//            }
+//        }
 
 
 
@@ -46,6 +46,6 @@ public class ComputerAI {
 //        }
 //        numberOfLoops++;
 
-        return computerShot;
-    }
+//        return computerShot;
+//    }
 }

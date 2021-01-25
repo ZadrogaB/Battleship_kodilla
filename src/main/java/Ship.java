@@ -68,5 +68,4 @@ public class Ship {
         positions.removeAll(allPositionsSet);
         neighbours.removeAll(allPositionsSet);
     }
-
 }

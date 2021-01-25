@@ -50,12 +50,12 @@ public class GameController {
     public void RunGame(int row, int column){
         shooter.shootPlayer(playerShips, computerShips, deadShipsPlayer, deadShipsComputer, row, column);
 
-            isWin("Player");
+        isWin("Player");
 
         isHitPlayer = shooter.isHit();
         shooter.shootComputer(playerBoard, playerShips, computerShips, deadShipsPlayer, deadShipsComputer);
 
-            isWin("Computer");
+        isWin("Computer");
 
         isHitComputer = shooter.isHit();
         computerShot=shooter.getComputerShot();
@@ -98,7 +98,6 @@ public class GameController {
     }
 
     public void isWin(String player) {
-        boolean win = false;
         if(playerShips.size()==0||computerShips.size()==0){
             System.out.println("Zwycięzcą jest: " + player);
             if(winnerString==null) {
@@ -109,10 +108,7 @@ public class GameController {
     }
 
     public boolean placeShipsPlayer(Ship ship, MouseEvent e, int row, int column, boolean isHorizontal){
-
         boolean testInterference;
-//        System.out.println("Wybierz położenie statku o wielkości " + ship.getNumberOfSquares());
-
         ship.deleteAllPositions();
 
         if (isHorizontal == false) {
@@ -132,7 +128,6 @@ public class GameController {
         if(testInterference){
             System.out.println("Statki są za blisko siebie!");
         }
-
         return testInterference;
     }
 
@@ -162,7 +157,6 @@ public class GameController {
             testInterference=isShipInterfere(computerShips, computerShip,row, column, computerShip.isHorizontal());
         } while (testInterference);
         computerShip.setHorizontal(horizontal);
-//        System.out.println("KOMPUTER: ustawiono statek " + computerShip.getLife() + " na pozycji: " + row + ", " + column);
     }
 
     public List<Ship> createShips(){
@@ -195,7 +189,6 @@ public class GameController {
                 }
             }
         }
-
         if(newShip.getNumberOfSquares() + column>10 && isHorizontal){
             isShipInterfere=true;
         } else if(newShip.getNumberOfSquares()+row>10 && !isHorizontal)
@@ -221,5 +214,4 @@ public class GameController {
             System.out.println("Błąd usuwania!");
         }
     }
-
-    }
+}
