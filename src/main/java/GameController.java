@@ -42,18 +42,18 @@ public class GameController {
     public void startFunctions(){
         boardClass.fillBoardWithWater(playerBoard);
         boardClass.fillBoardWithWater(computerBoard);
-        System.out.println("startFunctions work");
+//        System.out.println("startFunctions work");
         winnerString=null;
         isWin=false;
     }
 
-    public void RunGame(int row, int column){
+    public void RunGame(int row, int column, boolean isHard){
         shooter.shootPlayer(playerShips, computerShips, deadShipsPlayer, deadShipsComputer, row, column);
 
         isWin("Player");
 
         isHitPlayer = shooter.isHit();
-        shooter.shootComputer(playerBoard, playerShips, computerShips, deadShipsPlayer, deadShipsComputer);
+        shooter.shootComputer(playerBoard, playerShips, computerShips, deadShipsPlayer, deadShipsComputer, isHard);
 
         isWin("Computer");
 
@@ -99,7 +99,7 @@ public class GameController {
 
     public void isWin(String player) {
         if(playerShips.size()==0||computerShips.size()==0){
-            System.out.println("Zwycięzcą jest: " + player);
+//            System.out.println("Zwycięzcą jest: " + player);
             if(winnerString==null) {
                 winnerString = player;
             }
@@ -126,7 +126,7 @@ public class GameController {
         }
         testInterference=isShipInterfere(playerShips, ship, row, column, ship.isHorizontal());
         if(testInterference){
-            System.out.println("Statki są za blisko siebie!");
+//            System.out.println("Statki są za blisko siebie!");
         }
         return testInterference;
     }
@@ -206,12 +206,8 @@ public class GameController {
             deadShipsPlayer.clear();
             playerShips = createShips();
             computerShips = createShips();
-            System.out.println("playerShips size: " + playerShips.size() +
-                    "\ncomputerShips size:" + computerShips.size() +
-                    "\ndeadShipsComputer size:" + deadShipsComputer.size() +
-                    "\ndeadShipsPlayer size:" + deadShipsPlayer.size());
+            shooter.clearHitInAI();
         } catch (RuntimeException e){
-            System.out.println("Błąd usuwania!");
         }
     }
 }

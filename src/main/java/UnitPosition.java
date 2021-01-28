@@ -2,6 +2,15 @@ public class UnitPosition {
     private int row;
     private int column;
 
+    @Override
+    public String toString() {
+        return "UnitPosition{" +
+                "row=" + row +
+                ", column=" + column +
+                '}';
+    }
+
+
     public UnitPosition(int row, int column) {
         this.row = row;
         this.column = column;

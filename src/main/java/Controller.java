@@ -1,7 +1,9 @@
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +34,12 @@ public class Controller {
     private Label restartLabel;
     @FXML
     private Label infoLabel;
+    @FXML
+    private Label difficultLevelLabel;
+    @FXML
+    private ChoiceBox difficultLevelChoice;
+
+
 
     private GameController gameController = new GameController();
     private List<Ship> playerShips = gameController.playerShips;
@@ -41,7 +49,12 @@ public class Controller {
     private int numberOfLoops = 0;
     private boolean isHorizontal=true;
     private boolean areTargetsVisible=false;
+    private boolean isHard;
 
+    public void initialize(){
+        difficultLevelChoice.getItems().add("Easy");
+        difficultLevelChoice.getItems().add("Hard");
+    }
 
     public void onMouseClickedVisibleTargetsButton() {
         Color color;
@@ -68,6 +81,12 @@ public class Controller {
     public void onMouseClickedNewGame(MouseEvent e) {
         gameController.startFunctions();
         System.out.println("StartWork");
+        String level = (String) difficultLevelChoice.getValue();
+        if (level.equals("Hard")){
+            isHard=true;
+        } else {
+            isHard=false;
+        }
         numberOfLoops = 0;
         newGameButton.setVisible(false);
         gridPaneShips.disableProperty().set(false);
@@ -86,6 +105,7 @@ public class Controller {
         UnitPosition nodePosition = getNode(e);
         int row = nodePosition.getRow();
         int column = nodePosition.getColumn();
+        System.out.println("Click!");
 
         if (numberOfLoops < playerShips.size()) {
             System.out.println("playerShip.size() = " + playerShips.size() + "\ncomputerShips.size() = " + computerShips.size());
@@ -107,6 +127,7 @@ public class Controller {
             if(numberOfLoops==playerShips.size()-1){
                 horizontalButton.visibleProperty().set(false);
                 gridPaneShips.disableProperty().set(true);
+                gridPaneTargets.disableProperty().set(false);
                 visibleTargetsButton.visibleProperty().set(true);
             }
             numberOfLoops++;
@@ -122,7 +143,7 @@ public class Controller {
         int afterShotSize;
 
         if (numberOfLoops>=playerShips.size()) {
-            gameController.RunGame(row, column);
+            gameController.RunGame(row, column, isHard);
             isHit = gameController.isHitPlayer();
             afterShotSize=computerShips.size();
             if(isHit) {
@@ -185,21 +206,20 @@ public class Controller {
             rectangle.disableProperty().set(false);
         }
 
-
-        gameController.restartGame();
+        gameController.restartGame();  //////????????????????????????????????????
         playerShips = gameController.playerShips;
         computerShips = gameController.computerShips;
 
-        gameController.startFunctions();
-        System.out.println("StartWork");
+        gameController.startFunctions(); //////????????????????????????????????????
         showInfo("Wybierz polozenie statku: 1");
         newGameButton.setVisible(false);
         gridPaneShips.disableProperty().set(false);
-        gridPaneTargets.disableProperty().set(false);
+        gridPaneTargets.disableProperty().set(true);
         visibleTargetsButton.setVisible(false);
         winLabel.setText("");
         restartLabel.setText("");
         setEverythingVisible(true);
+        numberOfLoops=0;
     }
 
     // Extra actions
@@ -209,6 +229,8 @@ public class Controller {
         gridPaneShips.visibleProperty().set(visible);
         gridPaneTargets.visibleProperty().set(visible);
         horizontalButton.visibleProperty().set(visible);
+        difficultLevelLabel.visibleProperty().set(!visible);
+        difficultLevelChoice.visibleProperty().set(!visible);
 
         ObservableList<Node> gridPaneShipsChildren = gridPaneShips.getChildren();
         for (Node node : gridPaneShipsChildren) {

@@ -68,4 +68,31 @@ public class Ship {
         positions.removeAll(allPositionsSet);
         neighbours.removeAll(allPositionsSet);
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Ship ship = (Ship) o;
+
+        if (life != ship.life) return false;
+        if (numberOfSquares != ship.numberOfSquares) return false;
+        if (horizontal != ship.horizontal) return false;
+        if (positions != null ? !positions.equals(ship.positions) : ship.positions != null) return false;
+        if (neighbours != null ? !neighbours.equals(ship.neighbours) : ship.neighbours != null) return false;
+        return allPositionsSet != null ? allPositionsSet.equals(ship.allPositionsSet) : ship.allPositionsSet == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = life;
+        result = 31 * result + numberOfSquares;
+        result = 31 * result + (positions != null ? positions.hashCode() : 0);
+        result = 31 * result + (neighbours != null ? neighbours.hashCode() : 0);
+        result = 31 * result + (horizontal ? 1 : 0);
+        result = 31 * result + (allPositionsSet != null ? allPositionsSet.hashCode() : 0);
+        return result;
+    }
 }
