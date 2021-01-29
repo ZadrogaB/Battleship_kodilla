@@ -211,6 +211,13 @@ public class Controller {
         playerShips = gameController.playerShips;
         computerShips = gameController.computerShips;
 
+        String level = (String) difficultLevelChoice.getValue();
+        if (level.equals("Hard")){
+            isHard=true;
+        } else {
+            isHard=false;
+        }
+
         gameController.startFunctions(); //////????????????????????????????????????
         showInfo("Wybierz polozenie statku: 1");
         newGameButton.setVisible(false);

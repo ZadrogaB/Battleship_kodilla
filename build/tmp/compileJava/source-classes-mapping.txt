@@ -1,17 +1,17 @@
-Board.java
- Board
-Utils.java
- Utils
-Main.java
- Main
 ComputerAI.java
  ComputerAI
-Ship.java
- Ship
-UnitPosition.java
- UnitPosition
 Shooter.java
  Shooter
+Main.java
+ Main
+UnitPosition.java
+ UnitPosition
+Ship.java
+ Ship
+Utils.java
+ Utils
+Board.java
+ Board
 GameController.java
  GameController
 Controller.java
