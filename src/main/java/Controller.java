@@ -52,6 +52,7 @@ public class Controller {
     private boolean isHard;
 
     public void initialize(){
+        difficultLevelChoice.setValue("Easy");
         difficultLevelChoice.getItems().add("Easy");
         difficultLevelChoice.getItems().add("Hard");
     }
