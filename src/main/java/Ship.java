@@ -7,9 +7,7 @@ public class Ship {
     private Set<UnitPosition> positions = new HashSet<>();
     private Set<UnitPosition> neighbours = new HashSet<>();
     private boolean horizontal;
-
     private Set<UnitPosition> allPositionsSet = new HashSet<>();
-
 
     public Ship(int number) {
         this.life = number;
@@ -68,7 +66,6 @@ public class Ship {
         positions.removeAll(allPositionsSet);
         neighbours.removeAll(allPositionsSet);
     }
-
 
     @Override
     public boolean equals(Object o) {

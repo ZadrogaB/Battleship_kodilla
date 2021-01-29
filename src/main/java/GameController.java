@@ -42,29 +42,22 @@ public class GameController {
     public void startFunctions(){
         boardClass.fillBoardWithWater(playerBoard);
         boardClass.fillBoardWithWater(computerBoard);
-//        System.out.println("startFunctions work");
         winnerString=null;
         isWin=false;
     }
 
     public void RunGame(int row, int column, boolean isHard){
         shooter.shootPlayer(playerShips, computerShips, deadShipsPlayer, deadShipsComputer, row, column);
-
         isWin("Player");
-
         isHitPlayer = shooter.isHit();
         shooter.shootComputer(playerBoard, playerShips, computerShips, deadShipsPlayer, deadShipsComputer, isHard);
-
         isWin("Computer");
-
         isHitComputer = shooter.isHit();
         computerShot=shooter.getComputerShot();
-
     }
 
     public void setNeighbours (Ship ship, int row, int column, boolean horizontal){
         for (int i=0; i<ship.getNumberOfSquares(); i++) {
-            //System.out.println("Liczba kratek statku = " + ship.getNumberOfSquares() + " Iteracja = " + i);
             if (horizontal) {
                 ship.setNeighbours(row, column + i);//pozycja statku
                 if (row != 9) {
@@ -99,7 +92,6 @@ public class GameController {
 
     public void isWin(String player) {
         if(playerShips.size()==0||computerShips.size()==0){
-//            System.out.println("Zwycięzcą jest: " + player);
             if(winnerString==null) {
                 winnerString = player;
             }
@@ -115,7 +107,7 @@ public class GameController {
             for (int i = 0; i < ship.getNumberOfSquares(); i++) {
                 ship.setHorizontal(false);
                 ship.setPositions(row + i, column);
-                setNeighbours(ship, row, column, false); //company.Ship ship, int row, int column, boolean horizontal
+                setNeighbours(ship, row, column, false);
             }
         } else {
             for (int i = 0; i < ship.getNumberOfSquares(); i++) {
@@ -125,9 +117,6 @@ public class GameController {
             }
         }
         testInterference=isShipInterfere(playerShips, ship, row, column, ship.isHorizontal());
-        if(testInterference){
-//            System.out.println("Statki są za blisko siebie!");
-        }
         return testInterference;
     }
 
@@ -189,9 +178,10 @@ public class GameController {
                 }
             }
         }
-        if(newShip.getNumberOfSquares() + column>10 && isHorizontal){
+
+        if (newShip.getNumberOfSquares() + column>10 && isHorizontal) {
             isShipInterfere=true;
-        } else if(newShip.getNumberOfSquares()+row>10 && !isHorizontal)
+        } else if (newShip.getNumberOfSquares()+row>10 && !isHorizontal)
         {
             isShipInterfere=true;
         }

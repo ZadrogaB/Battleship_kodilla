@@ -1,4 +1,3 @@
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
-
     @FXML
     private GridPane gridPaneShips;
     @FXML
@@ -38,8 +36,6 @@ public class Controller {
     private Label difficultLevelLabel;
     @FXML
     private ChoiceBox difficultLevelChoice;
-
-
 
     private GameController gameController = new GameController();
     private List<Ship> playerShips = gameController.playerShips;
@@ -66,7 +62,7 @@ public class Controller {
             areTargetsVisible=true;
             color=Color.web("002AFFFF");
         }
-        paintSquaresShip(computerShips,color,gridPaneTargets, false);// zrobić listę z trafionymi celami i odjąć te cele od malowanych statków lub sprawdzać czy kwadrat jest czerwony i wtedy go nie zmienić na niebieski
+        paintSquaresShip(computerShips,color,gridPaneTargets, false);
     }
 
     public void onMouseClickedHorizontal(){
@@ -207,7 +203,7 @@ public class Controller {
             rectangle.disableProperty().set(false);
         }
 
-        gameController.restartGame();  //////????????????????????????????????????
+        gameController.restartGame();
         playerShips = gameController.playerShips;
         computerShips = gameController.computerShips;
 
@@ -217,8 +213,7 @@ public class Controller {
         } else {
             isHard=false;
         }
-
-        gameController.startFunctions(); //////????????????????????????????????????
+        gameController.startFunctions();
         showInfo("Wybierz polozenie statku: 1");
         newGameButton.setVisible(false);
         gridPaneShips.disableProperty().set(false);
@@ -325,9 +320,7 @@ public class Controller {
 
     public UnitPosition getNode(MouseEvent e){
         int row, column;
-
         Node source = (Node) e.getSource();
-
         try {
             row = GridPane.getRowIndex(source);
         } catch (RuntimeException exception) {

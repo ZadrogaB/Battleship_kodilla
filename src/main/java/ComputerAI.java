@@ -4,9 +4,6 @@ import java.util.Set;
 
 public class ComputerAI {
     private Utils utils = new Utils();
-    private  boolean wasHitLastTime=false;
-    private boolean isHit;
-    private  int numberOfLoops = 0;
     private UnitPosition computerShot;
     private Ship shipUnderFire=null;
     private Set<UnitPosition> hitPositions = new HashSet<>();
@@ -34,8 +31,6 @@ public class ComputerAI {
                 positions = ship.getPositions();
                 if(positions.contains(computerShot)){
                     shipUnderFire=ship;
-
-//                    System.out.println("Hit positions1: " + hitPositions);
                 }
             }
         } else if (shipUnderFire.getLife()!=0){
@@ -47,17 +42,10 @@ public class ComputerAI {
                 }
             }
             hitPositions.add(computerShot);
-//            System.out.println("Hit positions2: " + hitPositions);
         }
 
         if(shipUnderFire!=null && shipUnderFire.getLife()==1){
             shipUnderFire=null;
-        }
-
-        if(shipUnderFire!=null) {
-            System.out.println("Ship under fire life = " + shipUnderFire.getLife() + "    Ship under fire number of squares = " + shipUnderFire.getNumberOfSquares() + "\n" + computerShot);
-        } else {
-            System.out.println(shipUnderFire);
         }
         return  computerShot;
     }

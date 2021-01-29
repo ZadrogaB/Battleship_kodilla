@@ -10,7 +10,6 @@ public class UnitPosition {
                 '}';
     }
 
-
     public UnitPosition(int row, int column) {
         this.row = row;
         this.column = column;

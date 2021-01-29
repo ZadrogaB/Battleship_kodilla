@@ -24,7 +24,6 @@ public class Shooter {
         } else {
             computerShot = computerAI.AIHard(playerBoard, playerShips);
         }
-//        System.out.println("Computer AI wartości row i column: " + computerShot.getRow() +", " + computerShot.getColumn());
         checkIfHit(computerShot.getRow(), computerShot.getColumn(), true, playerShips, computerShips, deadShipsPlayer, deadShipsComputer);
     }
 
@@ -32,11 +31,9 @@ public class Shooter {
         if(isComputer) {
             checkIfHitCommon(playerShips, isComputer, row, column, deadShipsPlayer, deadShipsComputer);
             playerShips.removeIf(ship -> ship.getLife()==0);
-//            System.out.println("Graczowi pozostało " + playerShips.size() + " statków");
         } else {
             checkIfHitCommon(computerShips, isComputer, row, column, deadShipsPlayer, deadShipsComputer);
             computerShips.removeIf(ship -> ship.getLife()==0);
-//            System.out.println("Komputerowi pozostało " + computerShips.size() + " statków");
         }
     }
 
@@ -48,7 +45,6 @@ public class Shooter {
                 if (unitPosition.getColumn() == column && unitPosition.getRow() == row) {
                     hit = true;
                     ship.setLife(ship.getLife() - 1);
-//                    System.out.println("! ! ! HIT ! ! !");
                     if (ship.getLife() == 0 && isComputer==false) {
                         deadShipsPlayer.add(ship);
                     } else if (ship.getLife() == 0 && isComputer==true){
